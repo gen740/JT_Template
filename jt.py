@@ -18,13 +18,13 @@ def get_all_files(directory):
             os.path.relpath(file, os.path.expanduser(TEMPLATE_PATH)),
             os.path.relpath(file, directory),
         )
-        for file in glob.glob(directory + "**/**/*", recursive=True)
-        + glob.glob(directory + "**/**/.*", recursive=True)
+        for file in glob.glob(directory + "/**/*", recursive=True)
+        + glob.glob(directory + "/**/.*", recursive=True)
         if os.path.isfile(file)
     ]
 
 
-def list_available_tempalte():
+def list_available_tempalate():
     print("Available templates:")
     for file in glob.glob(os.path.expanduser(TEMPLATE_PATH) + "*", recursive=True):
         if not os.path.isdir(file):
@@ -44,7 +44,7 @@ def list_available_tempalte():
 def main():
     if len(sys.argv) < 2:
         print("Please specify the template name")
-        list_available_tempalte()
+        list_available_tempalate()
         return
 
     args = sys.argv[2:]
@@ -56,12 +56,12 @@ def main():
     files = get_all_files(f"{TEMPLATE_PATH}/{sys.argv[1]}")
 
     if sys.argv[1] == "--list":
-        list_available_tempalte()
+        list_available_tempalate()
         return
 
     if len(files) == 0:
         print("No Such template")
-        list_available_tempalte()
+        list_available_tempalate()
         return
 
     for file in files:
